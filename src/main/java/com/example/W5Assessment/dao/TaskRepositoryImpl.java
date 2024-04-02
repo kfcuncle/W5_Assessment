@@ -20,7 +20,7 @@ public class TaskRepositoryImpl implements TaskRepository{
     @Override
     public List<Task> findAll() {
         TypedQuery<Task> query = entityManager.createQuery(
-                "from Task", Task.class);
+                "from Task where isDeleted = false", Task.class);
         // execute query
         return query.getResultList();
     }
@@ -28,14 +28,6 @@ public class TaskRepositoryImpl implements TaskRepository{
     @Override
     public Task findById(Integer id) {
         return entityManager.find(Task.class, id);
-    }
-
-    @Override
-    public List<Task> findAllTaskExist() {
-        TypedQuery<Task> query = entityManager.createQuery(
-                "from Task where isDeleted = false", Task.class);
-        // execute query
-        return query.getResultList();
     }
 
     @Override

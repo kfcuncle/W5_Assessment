@@ -32,12 +32,6 @@ public class TaskController {
         return new ResponseEntity<Task>(taskService.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping("tasksExist")
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<List<Task>> findAllTaskExist() {
-        return new ResponseEntity<List<Task>>(taskService.findAllTaskExist(), HttpStatus.OK);
-    }
-
     @PostMapping("")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Void> save(@RequestBody Task task) {

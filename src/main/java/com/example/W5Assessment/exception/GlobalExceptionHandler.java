@@ -45,14 +45,15 @@ public class GlobalExceptionHandler {
 
     // Method to log the exception to a text file
     private void logException(Exception ex) {
-        try (FileWriter writer = new FileWriter("error.log", true);
-             PrintWriter printWriter = new PrintWriter(writer)) {
-            printWriter.println("Timestamp: " + LocalDateTime.now());
-            printWriter.println("Exception: " + ex.getMessage());
-            printWriter.println("----------------------------------------");
-        } catch (IOException e) {
-            logger.error("Error occurred while logging the exception: " + e.getMessage());
-        }
+        logger.error("Error occurred while logging the exception: " + ex.getMessage());
+//        try (FileWriter writer = new FileWriter("error.log", true);
+//             PrintWriter printWriter = new PrintWriter(writer)) {
+//            printWriter.println("Timestamp: " + LocalDateTime.now());
+//            printWriter.println("Exception: " + ex.getMessage());
+//            printWriter.println("----------------------------------------");
+//        } catch (IOException e) {
+//
+//        }
     }
 
     // Custom error message class

@@ -9,8 +9,6 @@ public interface TaskRepository {
 
     Task findById(Integer id);
 
-    List<Task> findAllTaskExist();
-
     void save (Task task);
 
     void update (Task task);

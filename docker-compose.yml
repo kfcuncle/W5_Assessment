@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  todotask:
+    image: todotask:latest
+    build:
+      context: .
+    depends_on:
+      - postgres
+      - keycloak
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/Tasks
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+    ports:
+      - "8080:8080"
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=Tasks
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  keycloak:
+    image: keycloak/keycloak:latest
+    ports:
+      - "8081:8080"
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    command: ["start-dev"]
+    volumes:
+      - keycloak-data:/opt/jboss/keycloak/standalone/data
+
+  todotask-ui:
+    image: todotask-ui:latest
+    ports:
+      - "4200:4200"
+    depends_on:
+      - todotask
+      - keycloak
+
+volumes:
+  keycloak-data:
+  postgres-data:

@@ -8,8 +8,6 @@ public interface TaskService {
 
     List<Task> findAll();
 
-    List<Task> findAllTaskExist();
-
     Task findById(Integer id);
 
     void save(Task task);

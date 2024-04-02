@@ -20,20 +20,7 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public List<Task> findAll() {
-        if (taskRepository.findAllTaskExist() != null) {
-            return taskRepository.findAll();
-        } else {
-            throw new EmptyTaskListException("Task list is empty");
-        }
-    }
-
-    @Override
-    public List<Task> findAllTaskExist() {
-        if (taskRepository.findAllTaskExist() != null) {
-            return taskRepository.findAllTaskExist();
-        } else {
-            throw new EmptyTaskListException("Task list is empty");
-        }
+        return taskRepository.findAll();
     }
 
     @Override
@@ -59,10 +46,12 @@ public class TaskServiceImpl implements TaskService{
     public void update(Task task) {
         if (taskRepository.findById(task.getId()) != null) {
             Task tempTask = taskRepository.findById(task.getId());
-            task.setDateCreated(tempTask.getDateCreated());
-            task.setDateUpdated(LocalDateTime.now());
-            task.setDeleted(false);
-            taskRepository.update(task);
+            tempTask.setTitle(task.getTitle());
+            tempTask.setDescription(task.getDescription());
+            tempTask.setCategory(task.getCategory());
+            tempTask.setDueDate(task.getDueDate());
+            tempTask.setDateUpdated(LocalDateTime.now());
+            taskRepository.update(tempTask);
         } else {
             throw new NoSuchTaskExistsException("Task not found with ID: " + task.getId());
         }
