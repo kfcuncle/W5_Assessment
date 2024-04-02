@@ -1,0 +1,10 @@
+FROM keycloak/keycloak
+
+ENV KEYCLOAK_ADMIN=admin
+ENV KEYCLOAK_ADMIN_PASSWORD=admin
+
+VOLUME /opt/jboss/keycloak/standalone/data
+
+EXPOSE 8080
+
+CMD ["start-dev"]
